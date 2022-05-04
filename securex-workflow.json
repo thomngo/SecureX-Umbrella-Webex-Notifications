@@ -1,0 +1,605 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u",
+    "name": "Umbrella MSP Notifier Project - Latest",
+    "title": "Umbrella MSP Notifier Project - Latest",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.secure_string",
+        "properties": {
+          "value": "*****",
+          "scope": "local",
+          "name": "orgID",
+          "type": "datatype.secure_string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01W9YVBUC78KH2JYrKzzrjJWHsxniNrVFyR",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "-1days",
+          "scope": "local",
+          "name": "Data range: FROM",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01W9YVBUC7FZZ6LqFbRs0toZ4mqBsf2Cl8R",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "now",
+          "scope": "local",
+          "name": "Data range: TO",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01W9YVBUC6OUF3vnAlPqjXUzStXF3T7sE3j",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 10,
+          "scope": "local",
+          "name": "UTC Offset",
+          "type": "datatype.integer",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01WA0TGX0GWEX2PkZhlKPCiOYAvHc1dy6OH",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.secure_string",
+        "properties": {
+          "value": "*****",
+          "scope": "local",
+          "name": "Bot access token ",
+          "type": "datatype.secure_string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01W9YVBUC6ZXT0cL2nTEEMiFfp7Ui7D6eak",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "10",
+          "scope": "local",
+          "name": "Data range:LIMIT",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01W9YVBUC7V425wgqWd8QXhOhbK5s4pcNHF",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "local",
+          "name": "length",
+          "type": "datatype.integer",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01W9YVBUC7NDZ2Dby8DwzZu6TNgDACUCdy2",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.secure_string",
+        "properties": {
+          "value": "*****",
+          "scope": "local",
+          "name": "Notification_Room_Id",
+          "type": "datatype.secure_string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01W9YVBUC83G773NO2IS0ootliT8WNLwAxH",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "display_name": "Umbrella MSP Notifier Project - Latest",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "execute_on_target_group": false,
+        "execute_on_workflow_target": false,
+        "no_target": true,
+        "specify_on_workflow_start": false
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01W9YVBXKRJE20dnzT5qEwt7tXAxooqDqmr",
+        "name": "HTTP Request",
+        "title": "Authentication",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "display_name": "Authentication",
+          "method": "GET",
+          "relative_url": "/auth/v2/oauth2/token",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01NXT8YQZVYLA3sqIBbs1WHS7jP6K5exuuR"
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01W9YVBYJRUUC7ZfM3lS0i0UrxfZ8Xb94Ia",
+        "name": "JSONPath Query",
+        "title": "Get Bearer Token",
+        "type": "corejava.jsonpathquery",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Get Bearer Token",
+          "input_json": "$activity.definition_activity_01W9YVBXKRJE20dnzT5qEwt7tXAxooqDqmr.output.response_body$",
+          "jsonpath_queries": [
+            {
+              "jsonpath_query": "$.access_token",
+              "jsonpath_query_name": "BearerTOken",
+              "jsonpath_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01W9YVBZPK0JZ3JaIOhH4jS92ceOjlVgO02",
+        "name": "HTTP Request",
+        "title": "Get security activity",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "custom_headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer $activity.definition_activity_01W9YVBYJRUUC7ZfM3lS0i0UrxfZ8Xb94Ia.output.jsonpath_queries.BearerTOken$"
+            }
+          ],
+          "display_name": "Get security activity",
+          "method": "GET",
+          "relative_url": "/v2/organizations/$workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01W9YVBUC78KH2JYrKzzrjJWHsxniNrVFyR$/activity?verdict=blocked&from=$workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01W9YVBUC7FZZ6LqFbRs0toZ4mqBsf2Cl8R$&to=$workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01W9YVBUC6OUF3vnAlPqjXUzStXF3T7sE3j$&limit=$workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01W9YVBUC7V425wgqWd8QXhOhbK5s4pcNHF$",
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01NXT6OBZHGBM14SzYHshWpu1NGENyi5xgi"
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01W9YVC13OGW803yK1KAJi9G3tgT09eMTz2",
+        "name": "Execute Python Script",
+        "title": "Get all the blocked domains and violating devices",
+        "type": "python3.script",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Get all the blocked domains and violating devices",
+          "script": "import json\n\n#Setting up variable references\njson_str = ' $activity.definition_activity_01W9YVBZPK0JZ3JaIOhH4jS92ceOjlVgO02.output.response_body$'\njson_obj = json.loads(json_str)\ndata = json_obj['data']\nblockedlist_array = []\nnotification_array = list()\n\n#Saving the dictionary data retreived from API call after a simple filter\n#to ensure only blocked and unique entries are put in the array\nfor element in data:\n        if element['verdict'] == 'blocked'  and element not in blockedlist_array:\n           blockedlist_array.append(element)\n\n\n\n#Creating a list (notification_array) containing only the relevant fields\n#From the blocked activities data\nfor element in blockedlist_array:\n    ids = set()\n    policies = list()\n    for id in element['identities']:\n           label = id['label']\n           ids.add(label)\n    for cats in element['policycategories']:\n        label = cats['label']\n        policies.append(label)\n    ids = list(ids)\n    if len(ids) <= 1 :\n        ids = ids[0]\n    if 'domain' in list(element.keys()):\n             url = element['domain']\n    else:\n             url = element['url']\n    notificatication_info = {\n         \"date\" : element['date'],\n         \"domain\" : url,\n         \"time\": element['time'],\n         \"internalip\" : element['internalip'],\n         \"device\" : ids,\n         \"connection_type\" : element['type'],\n         \"policy_category\" :  policies \n         } \n    notification_array.append(notificatication_info)\nnotification_array_json = json.dumps(notification_array)\n\n#Length global variable is set- we only want to send 1 notification per blocked request, \n#So need to set this variable\nlength = len(json.loads(notification_array_json))\n",
+          "script_queries": [
+            {
+              "script_query": "blockedlist_array",
+              "script_query_name": "Array of Policy Violations",
+              "script_query_type": "string"
+            },
+            {
+              "script_query": "notification_array_json",
+              "script_query_name": "notification_array",
+              "script_query_type": "string"
+            },
+            {
+              "script_query": "length",
+              "script_query_name": "length_of_notification_array",
+              "script_query_type": "integer"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01W9YVC2F6SKY4tPfKECLXKiiahS3xCe8u5",
+        "name": "Set Variables",
+        "title": "Set iterator to length of array",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Set iterator to length of array",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01W9YVBUC7NDZ2Dby8DwzZu6TNgDACUCdy2$",
+              "variable_value_new": "$activity.definition_activity_01W9YVC13OGW803yK1KAJi9G3tgT09eMTz2.output.script_queries.length_of_notification_array$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01W9YVC3IL0BX4pHPsiJNIRGwUp73VHO9W6",
+        "name": "While Loop",
+        "title": "While Loop",
+        "type": "logic.while",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "While Loop",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_01W9YVC4F14HA2ShmOjWymXwOs986CtORvr",
+            "name": "Condition Branch",
+            "title": "Condition Branch",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01W9YVBUC7NDZ2Dby8DwzZu6TNgDACUCdy2$",
+                "operator": "gt",
+                "right_operand": 0
+              },
+              "continue_on_failure": false,
+              "display_name": "Condition Branch",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01W9ZUU9XOSQ01V15yNO434rmutD15hqKAM",
+                "name": "Execute Python Script",
+                "title": "Change timezone to AEST (Can modify to others)",
+                "type": "python3.script",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": false,
+                  "display_name": "Change timezone to AEST (Can modify to others)",
+                  "script": "import datetime\nimport json\n\n#Getting the variable references and setting the 'index' variable by subtracting the current iteration number from total length\nnotification_json = '$activity.definition_activity_01W9YVC13OGW803yK1KAJi9G3tgT09eMTz2.output.script_queries.notification_array$'\nnotification_json = json.loads(notification_json)\nindex = len(notification_json) - $workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01W9YVBUC7NDZ2Dby8DwzZu6TNgDACUCdy2$\nelement = notification_json[index]\ndate = element['date']\ntime = element['time']\ndate_time = date+'T'+time+'Z'\n\n#Setting the time variables\nsydTimeDelta = datetime.timedelta(hours=$workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01WA0TGX0GWEX2PkZhlKPCiOYAvHc1dy6OH$) #Based on the UTC Offset variable \nsydTZObject = datetime.timezone(sydTimeDelta,\n                                name=\"SYD\") #Change name if you prefer depending on your timezone\ndate_time_obj_str = date_time.replace('T',' ').replace('Z','').split('.')[0]\ndate_time_obj = datetime.datetime.strptime(date_time_obj_str, \"%Y-%m-%d %H:%M:%S\") #Conversion to our preferred format\nadjusted_datetime_obj = date_time_obj.astimezone(sydTZObject) #Conversion to our preferred timezone\n\nTimezone_Name = 'AEST' #Change this to the name of your choosing- it will show up in the card messages\n\n#Output variables\nDate = adjusted_datetime_obj.strftime('%d/%m/%Y')\nTime = adjusted_datetime_obj.strftime('%H:%M:%S')\n",
+                  "script_queries": [
+                    {
+                      "script_query": "Date",
+                      "script_query_name": "Date",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "Time",
+                      "script_query_name": "Time",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "Timezone_Name",
+                      "script_query_name": "Timezone",
+                      "script_query_type": "string"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_01W9YVC56MZMF6xhModhV3VxNzfKamalmao",
+                "name": "Execute Python Script",
+                "title": "Create message string",
+                "type": "python3.script",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": false,
+                  "display_name": "Create message string",
+                  "script": "import json\n\n#Getting the variable references and setting the 'index' variable by subtracting the current iteration number from total length\nnotification_json = '$activity.definition_activity_01W9YVC13OGW803yK1KAJi9G3tgT09eMTz2.output.script_queries.notification_array$'\nnotification_json = json.loads(notification_json)\nprint(notification_json)\nindex = len(notification_json) - $workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01W9YVBUC7NDZ2Dby8DwzZu6TNgDACUCdy2$\nprint(index)\n\n#Creating message string and using the updated date-time values \n#Saving relevant fields as output variables for this iteration\nif len(notification_json) != 0 :\n    element = notification_json[index]\n    date = '$activity.definition_activity_01W9ZUU9XOSQ01V15yNO434rmutD15hqKAM.output.script_queries.Date$'\n    domain = element['domain']\n    device = str(element['device'])\n    time = '$activity.definition_activity_01W9ZUU9XOSQ01V15yNO434rmutD15hqKAM.output.script_queries.Time$'\n    internal_ip = element['internalip']\n    date_time = date+'T'+time+'Z'\n    category= element['policy_category']\n    category = ', '.join(category)\n    msg = f\"On {date} - {time}, the device {device} tried to connect to domain \\\"{domain}\\\" which was blocked due to it falling in the '{category}' category\"\nelse:\n    msg=\"Nothing to report\"\n#Variable to show one iteration has passed- reduce the 'length' of amount of messages left to be sent \nnew_len = $workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01W9YVBUC7NDZ2Dby8DwzZu6TNgDACUCdy2$ -1",
+                  "script_arguments": [
+                    "$workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01W9YVBUC7NDZ2Dby8DwzZu6TNgDACUCdy2$"
+                  ],
+                  "script_queries": [
+                    {
+                      "script_query": "msg",
+                      "script_query_name": "message",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "date",
+                      "script_query_name": "date",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "domain",
+                      "script_query_name": "domain",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "device",
+                      "script_query_name": "device",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "time",
+                      "script_query_name": "time",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "internal_ip",
+                      "script_query_name": "internal-ip",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "index",
+                      "script_query_name": "index",
+                      "script_query_type": "integer"
+                    },
+                    {
+                      "script_query": "new_len",
+                      "script_query_name": "new_len",
+                      "script_query_type": "integer"
+                    },
+                    {
+                      "script_query": "date_time",
+                      "script_query_name": "date_time",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "category",
+                      "script_query_name": "category",
+                      "script_query_type": "string"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_01W9YVC5X016A3MGC1700PdH4gPbiUk0jhx",
+                "name": "Replace String",
+                "title": "Format message for HTTP Request",
+                "type": "core.replacestring",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Format message for HTTP Request",
+                  "input_string": "$activity.definition_activity_01W9YVC56MZMF6xhModhV3VxNzfKamalmao.output.script_queries.message$",
+                  "replace_list": [
+                    {
+                      "replaced_string": "\"",
+                      "replacement_string": "\\\""
+                    },
+                    {
+                      "replaced_string": "\n",
+                      "replacement_string": "\\n"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_01W9YVC6XEG9H6YS1atprRvTO4pFGcDuvaL",
+                "name": "HTTP Request",
+                "title": "Card message",
+                "type": "web-service.http_request",
+                "base_type": "activity",
+                "properties": {
+                  "accept": "application/json",
+                  "action_timeout": 180,
+                  "allow_auto_redirect": true,
+                  "body": "{\n    \"roomId\": \"$workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01W9YVBUC83G773NO2IS0ootliT8WNLwAxH$\",\n    \"text\": \"Card Message\",\n    \"attachments\": [\n      {\n        \"contentType\": \"application/vnd.microsoft.card.adaptive\",\n        \"content\": {\n          \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n          \"type\": \"AdaptiveCard\",\n          \"version\": \"1.0\",\n          \"body\": [\n          {\n              \"type\": \"ColumnSet\",\n              \"columns\": [\n                  {\n                      \"type\": \"Column\",\n                      \"items\": [\n                          {\n                              \"type\": \"Image\",\n                              \"style\": \"Person\",\n                              \"url\": \"https://www.cisco.com/c/dam/assets/dmr/1off/reimagine-pilots/securex/images/securex-in-action.png\",\n                              \"size\": \"Medium\",\n                              \"height\": \"50px\"\n                          }\n                      ],\n                      \"width\": \"auto\"\n                  },\n                  {\n                      \"type\": \"Column\",\n                      \"items\": [\n                          {\n                              \"type\": \"TextBlock\",\n                              \"text\": \"SecureX Monitoring Workflow\",\n                              \"weight\": \"Lighter\",\n                              \"color\": \"Accent\"\n                          },\n                          {\n                              \"type\": \"TextBlock\",\n                              \"weight\": \"Bolder\",\n                              \"text\": \"Umbrella Notification Bot\",\n                              \"wrap\": true,\n                              \"color\": \"Light\",\n                              \"size\": \"Large\",\n                              \"spacing\": \"Small\"\n                          }\n                      ],\n                      \"width\": \"stretch\"\n                  }\n              ]\n          },\n          {\n              \"type\": \"ColumnSet\",\n\"columns\": [\n                  {\n                      \"type\": \"Column\",\n                      \"width\": 35,\n                      \"items\": [\n                          {\n                              \"type\": \"TextBlock\",\n                              \"text\": \"Date:\",\n                              \"color\": \"Light\"\n                          },\n                          {\n                            \"type\": \"TextBlock\",\n                            \"text\": \"Time ($activity.definition_activity_01W9ZUU9XOSQ01V15yNO434rmutD15hqKAM.output.script_queries.Timezone$):\",\n                            \"color\": \"Light\"\n                          },\n                          {\n                            \"type\": \"TextBlock\",\n                            \"text\": \"Internal-IP:\",\n                            \"weight\": \"Lighter\",\n                            \"color\": \"Light\",\n                            \"spacing\": \"Small\"\n                        },\n                        {\n                            \"type\": \"TextBlock\",\n                            \"text\": \"Domain:\",\n                            \"weight\": \"Lighter\",\n                            \"color\": \"Light\",\n                            \"spacing\": \"Small\"\n                        },\n                        {\n                            \"type\": \"TextBlock\",\n                            \"text\": \"Category:\",\n                            \"weight\": \"Lighter\",\n                            \"color\": \"Light\",\n                            \"spacing\": \"Small\"\n                        },\n                          {\n                              \"type\": \"TextBlock\",\n                              \"text\": \"Device:\",\n                              \"weight\": \"Lighter\",\n                              \"color\": \"Light\",\n                              \"spacing\": \"Small\"\n                          }\n                      ]\n                  },\n                  {\n                      \"type\": \"Column\",\n                      \"width\": 65,\n                      \"items\": [\n                          {\n                              \"type\": \"TextBlock\",\n                              \"text\": \"$activity.definition_activity_01W9ZUU9XOSQ01V15yNO434rmutD15hqKAM.output.script_queries.Date$\",\n                              \"color\": \"Light\"\n                          },\n                          {\n                            \"type\": \"TextBlock\",\n                            \"text\": \"$activity.definition_activity_01W9ZUU9XOSQ01V15yNO434rmutD15hqKAM.output.script_queries.Time$\",\n                            \"color\": \"Light\"\n                        },\n                        {\n                            \"type\": \"TextBlock\",\n                            \"text\": \"$activity.definition_activity_01W9YVC56MZMF6xhModhV3VxNzfKamalmao.output.script_queries.internal-ip$\",\n                            \"color\": \"Light\",\n                            \"spacing\": \"Small\"\n                        },\n                          {\n                              \"type\": \"TextBlock\",\n                              \"text\": \"$activity.definition_activity_01W9YVC56MZMF6xhModhV3VxNzfKamalmao.output.script_queries.domain$\",\n                              \"color\": \"Light\",\n                              \"spacing\": \"Small\"\n                          },\n                          {\n                              \"type\": \"TextBlock\",\n                              \"text\": \"$activity.definition_activity_01W9YVC56MZMF6xhModhV3VxNzfKamalmao.output.script_queries.category$\",\n                              \"color\": \"Light\",\n                              \"spacing\": \"Small\"\n                          },\n                          {\n                              \"type\": \"TextBlock\",\n                              \"text\": \"$activity.definition_activity_01W9YVC56MZMF6xhModhV3VxNzfKamalmao.output.script_queries.device$\",\n                              \"color\": \"Light\",\n                              \"spacing\": \"Small\"\n                          }\n                      ]\n                  }\n              ],\n              \"spacing\": \"Padding\",\n              \"horizontalAlignment\": \"Center\"\n          },\n          {\n              \"type\": \"TextBlock\",\n              \"text\": \"$activity.definition_activity_01W9YVC5X016A3MGC1700PdH4gPbiUk0jhx.output.result_string$\",\n              \"wrap\": true\n          },\n          {\n              \"type\": \"TextBlock\",\n              \"text\": \"Resources:\"\n          },\n          {\n              \"type\": \"ColumnSet\",\n              \"columns\":[\n                   {\n                        \"type\": \"Column\",\n                        \"width\": \"auto\",\n                        \"items\": [\n                            {\n                                \"type\": \"Image\",\n                                \"altText\": \"\",\n                                \"url\": \"https://www.iconsdb.com/icons/preview/black/link-xxl.png\",\n                                \"size\": \"Small\",\n                                \"width\": \"30px\",\n                                \"isVisible\": true,\n                                \"selectAction\": {\n                                    \"type\": \"Action.OpenUrl\",\n                                    \"url\": \"https://dashboard.umbrella.com/o/$workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01W9YVBUC78KH2JYrKzzrjJWHsxniNrVFyR$/#/overview\"\n                                }\n                            }\n                        ],\n                        \"spacing\": \"Small\"\n                    },\n                    {\n                        \"type\": \"Column\",\n                        \"width\": \"auto\",\n                        \"items\": [\n                            {\n                                \"type\": \"TextBlock\",\n                                \"text\": \"Check out incident in Umbrella\",\n                                \"size\": \"Medium\"\n                            }\n                        ],\n                    \"verticalContentAlignment\": \"Center\",\n                    \"spacing\": \"Small\"\n                    }\n              ]\n            }\n          ]\n        }\n      }\n    ]\n  }",
+                  "content_type": "application/json",
+                  "continue_on_error_status_code": false,
+                  "continue_on_failure": false,
+                  "custom_headers": [
+                    {
+                      "name": "Authorization",
+                      "value": "Bearer  $workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01W9YVBUC6ZXT0cL2nTEEMiFfp7Ui7D6eak$"
+                    }
+                  ],
+                  "display_name": "Card message",
+                  "method": "POST",
+                  "relative_url": "/v1/messages",
+                  "runtime_user": {
+                    "override_target_runtime_user": false,
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "override_workflow_target": true,
+                    "target_id": "definition_target_01IHU9MT4EXEI4tLUm8fz0LklTHc8sK15it"
+                  }
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_01W9YVC8K4RHO18viGyyh8DaO5OzKkQPTOf",
+                "name": "Set Variables",
+                "title": "Reduce length iterator",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Reduce length iterator",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u.local.variable_workflow_01W9YVBUC7NDZ2Dby8DwzZu6TNgDACUCdy2$",
+                      "variable_value_new": "$activity.definition_activity_01W9YVC56MZMF6xhModhV3VxNzfKamalmao.output.script_queries.new_len$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "categories": ["category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"]
+  },
+  "triggers": {
+    "triggerschedule_01WA0RUZX472J0ljBscRGhwjoCGdJpxKlUV": {
+      "workflow_id": "definition_workflow_01W9YVBU1FSQQ5gi8XXd9vBKPURJnp4e47u",
+      "name": " Umbrella MSP Trigger",
+      "title": "",
+      "lowercase_name": "schedule.umbrella_msp_trigger",
+      "type": "schedule",
+      "base_type": "trigger",
+      "ref_id": "schedule_01O2A17XBENKD7PGTfmeAwwllNpd21LTZER",
+      "version": "1.0.0",
+      "disabled": false,
+      "unique_name": "triggerschedule_01WA0RUZX472J0ljBscRGhwjoCGdJpxKlUV",
+      "object_type": "triggerschedule"
+    }
+  },
+  "schedules": {
+    "schedule_01O2A17XBENKD7PGTfmeAwwllNpd21LTZER": {
+      "unique_name": "schedule_01O2A17XBENKD7PGTfmeAwwllNpd21LTZER",
+      "name": "Umbrella MSP Schedule",
+      "type": "basic.schedule",
+      "base_type": "schedule",
+      "properties": {
+        "calendar": "calendar_group_01O29Y75CCWBE5JowyP7w9SZu3g5UXgWHF0",
+        "timezone": "Asia/Kuala_Lumpur",
+        "starttime": "00:00",
+        "interval_hours": 0,
+        "interval_minutes": 1,
+        "number_of_times": 1440,
+        "display_name": "Umbrella MSP Schedule",
+        "description": ""
+      },
+      "version": "1.0.0",
+      "object_type": "schedule"
+    }
+  },
+  "calendars": {
+    "calendar_group_01O29Y75CCWBE5JowyP7w9SZu3g5UXgWHF0": {
+      "unique_name": "calendar_group_01O29Y75CCWBE5JowyP7w9SZu3g5UXgWHF0",
+      "name": "Umbrella MSP Calendar",
+      "title": "Umbrella MSP Calendar",
+      "description": "From 04/28/21 to 05/14/21, only weekdays.",
+      "base_type": "calendar",
+      "type": "calendar.group",
+      "properties": {
+        "calendar_exclude": ["calendar_recurring_1BMfMviA3g4f1iDN74e6ytY2iuI"],
+        "calendar_include": ["calendar_recurring_1BMfMwZ4tmMYLJBxY4PFZf0e377"],
+        "date_range": {
+          "end_date": "2021-05-14",
+          "start_date": "2021-04-28"
+        }
+      },
+      "version": "1.0.0",
+      "object_type": "calendar_group"
+    }
+  },
+  "targets": {
+    "definition_target_01IHU9MT4EXEI4tLUm8fz0LklTHc8sK15it": {
+      "unique_name": "definition_target_01IHU9MT4EXEI4tLUm8fz0LklTHc8sK15it",
+      "name": "Webex Messages Target",
+      "title": "Webex Messages Target",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "description": "Webex Teams",
+        "disable_certificate_validation": false,
+        "display_name": "Webex Messages Target",
+        "host": "webexapis.com",
+        "no_runtime_user": true,
+        "port": 443,
+        "protocol": "https"
+      }
+    },
+    "definition_target_01NXT6OBZHGBM14SzYHshWpu1NGENyi5xgi": {
+      "unique_name": "definition_target_01NXT6OBZHGBM14SzYHshWpu1NGENyi5xgi",
+      "name": " Umbrella Reports Target",
+      "title": " Umbrella Reports Target",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": false,
+        "display_name": " Umbrella Reports Target",
+        "host": "reports.api.umbrella.com",
+        "ignore_proxy": false,
+        "no_runtime_user": true,
+        "protocol": "https"
+      }
+    },
+    "definition_target_01NXT8YQZVYLA3sqIBbs1WHS7jP6K5exuuR": {
+      "unique_name": "definition_target_01NXT8YQZVYLA3sqIBbs1WHS7jP6K5exuuR",
+      "name": "Umbrella Management Target",
+      "title": "Umbrella Management Target",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "default_runtime_user_id": "definition_runtime_user_01VUL6J22PZJP48oQIfWFEEUYttil1ruPew",
+        "disable_certificate_validation": false,
+        "display_name": "Umbrella Management Target",
+        "host": "management.api.umbrella.com",
+        "ignore_proxy": false,
+        "no_runtime_user": false,
+        "protocol": "https"
+      }
+    }
+  },
+  "runtime_users": {
+    "definition_runtime_user_01VUL6J22PZJP48oQIfWFEEUYttil1ruPew": {
+      "unique_name": "definition_runtime_user_01VUL6J22PZJP48oQIfWFEEUYttil1ruPew",
+      "name": "Umbrella_Organisation_Credentials",
+      "title": "Umbrella_Organisation_Credentials",
+      "type": "runtime_user.web-service_basic_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "auth_option": "Basic",
+        "basic_password": "*****",
+        "basic_username": "*****",
+        "display_name": "Umbrella_Organisation_Credentials"
+      }
+    }
+  }
+}
